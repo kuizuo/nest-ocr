@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package ocr;
+
+service OCR {
+  rpc Character (CharacterBody) returns (CharacterReply) {}
+
+  // TODO: Add other type, e.g. select, slide, etc.
+}
+
+message CharacterBody {
+  bytes image = 1;
+}
+
+message CharacterReply {
+  string result = 1;
+  int32 consumedTime = 2;
+}
