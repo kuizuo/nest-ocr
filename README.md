@@ -32,20 +32,9 @@ docker run -p 8124:8124 -d ocr_server:v1
 
 ```shell
 pnpm i
-pnpm run start:dev
+pnpm run dev
 ```
 
 ### 测试
 
-```shell
-node test.mjs
-```
-
-将输出如下内容
-
-```
-{ result: '2326', consumedTime: 14 }
-{ result: 'iepv', consumedTime: 18 }
-{ result: 'MLyA', consumedTime: 5 }
-{ result: '2bghz', consumedTime: 6 }
-```
+[在线测试](https://apifox.com/apidoc/shared-64d64b17-925b-407f-b52b-9ab46214c0d0)
