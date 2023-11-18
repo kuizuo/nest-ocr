@@ -1,3 +1,3 @@
 export interface Character {
-  image: ArrayBuffer;
+  image: ArrayBuffer
 }

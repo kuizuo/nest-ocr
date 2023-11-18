@@ -1,4 +1,3 @@
-
 export class ResOp<T = any> {
   data?: T
 

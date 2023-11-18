@@ -1,4 +1,4 @@
 export interface Reply {
-  result: string| number[][];
-  consumedTime: number;
+  result: string | number[][]
+  consumedTime: number
 }

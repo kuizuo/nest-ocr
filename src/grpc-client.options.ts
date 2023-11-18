@@ -1,5 +1,5 @@
-import { ClientOptions, Transport } from '@nestjs/microservices';
-import { join } from 'path';
+import { ClientOptions, Transport } from '@nestjs/microservices'
+import { join } from 'path'
 
 export const grpcClientOptions: ClientOptions = {
   transport: Transport.GRPC,
@@ -8,4 +8,4 @@ export const grpcClientOptions: ClientOptions = {
     protoPath: join(__dirname, './modules/ocr/ocr.proto'),
     url: 'localhost:50051',
   },
-};
+}

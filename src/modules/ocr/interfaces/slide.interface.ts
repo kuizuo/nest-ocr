@@ -1,5 +1,5 @@
 export interface Slide {
-  image1: ArrayBuffer;
-  image2: ArrayBuffer;
-  isMatch: boolean;
+  image1: ArrayBuffer
+  image2: ArrayBuffer
+  isMatch: boolean
 }
