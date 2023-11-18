@@ -7,16 +7,18 @@ import { grpcClientOptions } from 'src/grpc-client.options'
 import { CharacterDto } from './dtos/character.dto'
 import { SelectDto } from './dtos/select.dto'
 import { Select } from './interfaces/select.interface'
+import { SlideDto } from './dtos/slide.dto'
+import { Slide } from './interfaces/slide.interface'
 
 interface OCRService {
   /** 英数 */
-  Character(image: Character): Observable<Reply>
+  Character(data: Character): Observable<Reply>
 
   /** 点选 */
-  Select(image: Select): Observable<Reply>
+  Select(data: Select): Observable<Reply>
 
   /** 滑块 */
-  // Slide(image: Character): Observable<Reply>;
+  Slide(data: Slide): Observable<Reply>
 }
 
 @Controller('ocr')
@@ -42,5 +44,17 @@ export class OcrController implements OnModuleInit {
     const buffer = Buffer.from(dto.image, 'base64')
 
     return this.ocrService.Select({ image: buffer })
+  }
+
+  @Post('slide')
+  slide(@Body() dto: SlideDto): Observable<Reply> {
+    const buffer = Buffer.from(dto.image, 'base64')
+    const bg_buffer = Buffer.from(dto.bg_image, 'base64')
+
+    return this.ocrService.Slide({
+      image1: buffer,
+      image2: bg_buffer,
+      isMatch: dto.is_match,
+    })
   }
 }

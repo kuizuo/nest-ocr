@@ -5,7 +5,7 @@ export const grpcClientOptions: ClientOptions = {
   transport: Transport.GRPC,
   options: {
     package: 'ocr',
-    protoPath: join(__dirname, './ocr/ocr.proto'),
+    protoPath: join(__dirname, './modules/ocr/ocr.proto'),
     url: 'localhost:50051',
   },
 };

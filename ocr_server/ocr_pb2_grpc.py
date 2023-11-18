@@ -24,6 +24,11 @@ class OCRStub(object):
                 request_serializer=ocr__pb2.SelectBody.SerializeToString,
                 response_deserializer=ocr__pb2.SelectReply.FromString,
                 )
+        self.Slide = channel.unary_unary(
+                '/ocr.OCR/Slide',
+                request_serializer=ocr__pb2.SlideBody.SerializeToString,
+                response_deserializer=ocr__pb2.SlideReply.FromString,
+                )
 
 
 class OCRServicer(object):
@@ -41,6 +46,12 @@ class OCRServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def Slide(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_OCRServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -53,6 +64,11 @@ def add_OCRServicer_to_server(servicer, server):
                     servicer.Select,
                     request_deserializer=ocr__pb2.SelectBody.FromString,
                     response_serializer=ocr__pb2.SelectReply.SerializeToString,
+            ),
+            'Slide': grpc.unary_unary_rpc_method_handler(
+                    servicer.Slide,
+                    request_deserializer=ocr__pb2.SlideBody.FromString,
+                    response_serializer=ocr__pb2.SlideReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -95,5 +111,22 @@ class OCR(object):
         return grpc.experimental.unary_unary(request, target, '/ocr.OCR/Select',
             ocr__pb2.SelectBody.SerializeToString,
             ocr__pb2.SelectReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Slide(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ocr.OCR/Slide',
+            ocr__pb2.SlideBody.SerializeToString,
+            ocr__pb2.SlideReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

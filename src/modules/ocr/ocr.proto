@@ -6,6 +6,8 @@ service OCR {
   rpc Character (CharacterBody) returns (CharacterReply) {}
 
   rpc Select (SelectBody) returns (SelectReply) {}
+
+  rpc Slide (SlideBody) returns (SlideReply) {}
 }
 
 message CharacterBody {
@@ -27,5 +29,16 @@ message Array {
 
 message SelectReply {
   repeated Array result = 1;
+  int32 consumedTime = 2;
+}
+
+message SlideBody {
+  bytes image1 = 1;
+  bytes image2 = 2;
+  bool isMatch = 3;
+}
+
+message SlideReply {
+  repeated int32 result = 1;
   int32 consumedTime = 2;
 }

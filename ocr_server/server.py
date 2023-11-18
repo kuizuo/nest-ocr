@@ -45,6 +45,24 @@ class OCRServicer(ocr_pb2_grpc.OCRServicer):
             reply.result.append(inner_array)
 
         return reply
+    
+    def Slide(self, request, context):
+
+        t = time.perf_counter()
+
+        if request.isMatch is True:
+            result = slide.slide_match(request.image1, request.image2)
+        else:
+            result = slide.slide_comparison(request.image1, request.image2)
+
+
+        consumed_time = int((time.perf_counter() - t)*1000)
+
+        print({'result': result["target"], 'consumedTime': consumed_time})
+
+        reply = ocr_pb2.SlideReply(result=result["target"], consumedTime=consumed_time)
+
+        return reply
 
 
 def serve():
