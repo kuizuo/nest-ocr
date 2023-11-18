@@ -8,11 +8,12 @@ import ocr_pb2_grpc
 import ddddocr
 
 ocr = ddddocr.DdddOcr(beta=True)
+det = ddddocr.DdddOcr(det=True)
+slide = ddddocr.DdddOcr(det=False, ocr=False)
 
 
 class OCRServicer(ocr_pb2_grpc.OCRServicer):
 
-    # 这里实现 英数验证码 识别
     def Character(self, request, context):
 
         t = time.perf_counter()
@@ -22,10 +23,28 @@ class OCRServicer(ocr_pb2_grpc.OCRServicer):
 
         print({'result': result, 'consumedTime': consumed_time})
 
-        # 根据 ocr.proto 的 message CharacterReply 生成的类
-        response = ocr_pb2.CharacterReply(
+        reply = ocr_pb2.CharacterReply(
             result=result, consumedTime=consumed_time)
-        return response
+        return reply
+
+    def Select(self, request, context):
+
+        t = time.perf_counter()
+
+        result = det.detection(request.image)
+        consumed_time = int((time.perf_counter() - t)*1000)
+
+        print({'result': result, 'consumedTime': consumed_time})
+
+        reply = ocr_pb2.SelectReply(consumedTime=consumed_time)
+
+        for row in result:
+            inner_array = ocr_pb2.Array()
+            for item in row:
+                inner_array.items.append(item)
+            reply.result.append(inner_array)
+
+        return reply
 
 
 def serve():

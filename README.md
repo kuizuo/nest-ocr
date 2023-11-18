@@ -6,8 +6,6 @@
 
 ## 运行项目
 
-注: 不支持 Mac M 系芯片，需要自行编译 onnxruntime 才可以使用
-
 ### 运行 grpc 服务端
 
 ```shell

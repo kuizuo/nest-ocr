@@ -19,12 +19,23 @@ class OCRStub(object):
                 request_serializer=ocr__pb2.CharacterBody.SerializeToString,
                 response_deserializer=ocr__pb2.CharacterReply.FromString,
                 )
+        self.Select = channel.unary_unary(
+                '/ocr.OCR/Select',
+                request_serializer=ocr__pb2.SelectBody.SerializeToString,
+                response_deserializer=ocr__pb2.SelectReply.FromString,
+                )
 
 
 class OCRServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def Character(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def Select(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -37,6 +48,11 @@ def add_OCRServicer_to_server(servicer, server):
                     servicer.Character,
                     request_deserializer=ocr__pb2.CharacterBody.FromString,
                     response_serializer=ocr__pb2.CharacterReply.SerializeToString,
+            ),
+            'Select': grpc.unary_unary_rpc_method_handler(
+                    servicer.Select,
+                    request_deserializer=ocr__pb2.SelectBody.FromString,
+                    response_serializer=ocr__pb2.SelectReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -62,5 +78,22 @@ class OCR(object):
         return grpc.experimental.unary_unary(request, target, '/ocr.OCR/Character',
             ocr__pb2.CharacterBody.SerializeToString,
             ocr__pb2.CharacterReply.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Select(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ocr.OCR/Select',
+            ocr__pb2.SelectBody.SerializeToString,
+            ocr__pb2.SelectReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

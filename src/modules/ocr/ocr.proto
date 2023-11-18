@@ -5,7 +5,7 @@ package ocr;
 service OCR {
   rpc Character (CharacterBody) returns (CharacterReply) {}
 
-  // TODO: Add other type, e.g. select, slide, etc.
+  rpc Select (SelectBody) returns (SelectReply) {}
 }
 
 message CharacterBody {
@@ -14,5 +14,18 @@ message CharacterBody {
 
 message CharacterReply {
   string result = 1;
+  int32 consumedTime = 2;
+}
+
+message SelectBody {
+  bytes image = 1;
+}
+
+message Array {
+  repeated int32 items = 1;
+}
+
+message SelectReply {
+  repeated Array result = 1;
   int32 consumedTime = 2;
 }
